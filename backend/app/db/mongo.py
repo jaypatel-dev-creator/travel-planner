@@ -31,7 +31,9 @@ def get_database() -> AsyncDatabase:
 
 async def ensure_indexes() -> None:
     # Trips are listed most-recently-updated first.
-    await get_database()["trips"].create_index([("updated_at", DESCENDING)])
+    db = get_database()
+    await db["trips"].create_index([("updated_at", DESCENDING)])
+    await db["trip_documents.files"].create_index("metadata.trip_id")
     logger.info("MongoDB indexes ready.")
 
 

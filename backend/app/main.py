@@ -10,7 +10,7 @@ from app.core.exceptions import (
     travel_planner_exception_handler,
     generic_exception_handler,
 )
-from app.api.routes import health, trips
+from app.api.routes import health, trips, places, documents
 from app.db.mongo import init_mongo, ensure_indexes, close_mongo
 
 logger = get_logger(__name__)
@@ -63,6 +63,8 @@ def create_app() -> FastAPI:
     app.add_exception_handler(Exception, generic_exception_handler)
 
     app.include_router(trips.router, prefix="/trips", tags=["Trips"])
+    app.include_router(documents.router, prefix="/trips", tags=["Documents"])
+    app.include_router(places.router, prefix="/places", tags=["Places"])
     app.include_router(health.router)
 
     return app

@@ -12,6 +12,7 @@ from app.core.exceptions import (
 )
 from app.core.logging import get_logger
 from app.db.mongo import to_object_id
+from app.services import document_service
 from app.schemas.trip import (
     ActivityCreate,
     ActivityUpdate,
@@ -137,6 +138,7 @@ async def delete_trip(db: AsyncDatabase, trip_id: str) -> None:
     result = await db[COLLECTION].delete_one({"_id": to_object_id(trip_id)})
     if result.deleted_count == 0:
         raise TripNotFoundException(trip_id)
+    await document_service.delete_all_for_trip(db, trip_id)
     logger.info(f"Trip deleted: {trip_id}")
 
 
