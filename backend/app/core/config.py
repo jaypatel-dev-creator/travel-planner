@@ -9,8 +9,9 @@ class Settings(BaseSettings):
 
     # Optional integrations: the app boots without them and the
     # feature that needs a key raises a clear error when used.
-    google_places_api_key: str = ""
-    google_api_key: str = ""
+    google_places_api_key: str = ""   # empty -> place search uses OpenStreetMap
+    google_api_key: str = ""          # Gemini key for the assistant
+    gemini_model: str = "gemini-3.7-flash"
 
     # App
     app_env: str = "development"

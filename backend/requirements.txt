@@ -10,5 +10,8 @@ pydantic-settings==2.14.1
 # Database (PyMongo Async API; Motor is end-of-life)
 pymongo==4.20.1
 
-# HTTP (Google Places)
+# HTTP (place search)
 httpx==0.28.1
+
+# AI assistant (Gemini)
+google-genai==3.6.1

@@ -10,7 +10,7 @@ from app.core.exceptions import (
     travel_planner_exception_handler,
     generic_exception_handler,
 )
-from app.api.routes import health, trips, places, documents
+from app.api.routes import health, trips, places, documents, assistant
 from app.db.mongo import init_mongo, ensure_indexes, close_mongo
 
 logger = get_logger(__name__)
@@ -44,7 +44,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title="Travel Planner API",
-        description="Trip planning with Google Maps, MongoDB and a Gemini assistant",
+        description="Trip planning with maps, MongoDB and a Gemini assistant",
         version="1.0.0",
         docs_url="/docs" if settings.app_env == "development" else None,
         redoc_url=None,
@@ -64,6 +64,7 @@ def create_app() -> FastAPI:
 
     app.include_router(trips.router, prefix="/trips", tags=["Trips"])
     app.include_router(documents.router, prefix="/trips", tags=["Documents"])
+    app.include_router(assistant.router, prefix="/trips", tags=["Assistant"])
     app.include_router(places.router, prefix="/places", tags=["Places"])
     app.include_router(health.router)
 
